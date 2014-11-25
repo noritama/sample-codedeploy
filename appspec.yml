@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+  destination: /data/sample-codedeploy
+permissions:
+  - object: /data/
+    pattern: "**"
+    mode: 775
+hooks:
+  BeforeInstall:
+    - location: bin/cleanup.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: bin/install.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: bin/start.sh
+      timeout: 300
+      runas: root
